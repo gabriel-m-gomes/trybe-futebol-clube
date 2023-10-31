@@ -67,6 +67,11 @@ const allTeams = [
   }
 ];
 
+const teamOne = {
+  id: 1,
+  teamName: "Avaí/Kindermann"
+}
 export default {
   allTeams,
+  teamOne,
 }

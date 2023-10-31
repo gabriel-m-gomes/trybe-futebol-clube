@@ -4,16 +4,19 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
 import { app } from '../app';
-import Example from '../database/models/ExampleModel';
 import SequelizeTeams from '../database/models/SequelizeTeams';
-import { Response } from 'superagent';
 import teamsMocks from './mocks/teamsMocks';
 chai.use(chaiHttp);
 
 const { expect } = chai;
 
 describe('Seu teste', () => {
- it('should return all books', async function() {
+  afterEach(function () {
+    // Restaura o stub do Sinon após cada teste
+    sinon.restore();
+  });
+
+ it('Retorna todos os times', async function() {
     sinon.stub(SequelizeTeams, 'findAll').resolves(teamsMocks.allTeams.map((team) => SequelizeTeams.build(team)));
 
     const { status, body } = await chai.request(app).get('/teams');
@@ -22,7 +25,20 @@ describe('Seu teste', () => {
     expect(body).to.deep.equal(teamsMocks.allTeams);
   });
 
-  it('Seu sub-teste', () => {
-    expect(false).to.be.eq(true);
-  });
+  it('Retorna apenas um time', async function () {
+    sinon.stub(SequelizeTeams, 'findByPk').resolves(SequelizeTeams.build(teamsMocks.teamOne))
+
+    const response = await chai.request(app).get('/teams/1');
+    expect(response.status).to.be.equal(200);
+    expect(response.body).to.be.deep.equal(teamsMocks.teamOne);
+  })
+
+   it('Retorna erro um id inexistente', async function () {
+    sinon.stub(SequelizeTeams, 'findByPk').resolves(null)
+
+    const response = await chai.request(app).get('/teams/1');
+    expect(response.status).to.be.equal(404);
+    expect(response.body).to.be.deep.equal({ message: 'Team not found' });
+  })
+
 });
