@@ -11,7 +11,7 @@ class SequelizeTeams extends Model<InferAttributes<SequelizeTeams>,
 InferCreationAttributes<SequelizeTeams>> {
   declare id: CreationOptional<number>;
 
-    declare teamName: string;
+  declare teamName: string;
 }
 
 SequelizeTeams.init({
