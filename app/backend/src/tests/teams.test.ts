@@ -10,9 +10,8 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Seu teste', () => {
+describe('Testando o fluxo 1', () => {
   afterEach(function () {
-    // Restaura o stub do Sinon após cada teste
     sinon.restore();
   });
 
