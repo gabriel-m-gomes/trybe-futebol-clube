@@ -9,12 +9,12 @@ export default class UserService {
 
   public async findByEmail(email: string, password: string): Promise<ServiceResponse<ITOKEN>> {
     const user = await this.userModel.findByEmail(email);
-    if (!user) return { status: 'NOT_FOUND', data: { message: 'User not found' } };
+    if (!user) return { status: 'UNAUTHORIZED', data: { message: 'Invalid email or password' } };
 
     const PasswordValid = await bcrypt.compare(password, user.password);
 
     if (!PasswordValid) {
-      return { status: 'UNAUTHORIZED', data: { message: 'Invalid username or password' } };
+      return { status: 'UNAUTHORIZED', data: { message: 'Invalid email or password' } };
     }
 
     const token = JwtService.sign({ id: user.id, email: user.email });

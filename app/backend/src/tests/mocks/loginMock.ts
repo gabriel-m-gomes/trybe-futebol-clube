@@ -5,6 +5,8 @@ const userBody = {
   password: 'secret_admin',
 }
 
+const notExistingUserBody = { email: 'notfound@email.com', password: "secret_admin" };
+
 const noEmptyEmail = {
   email: '',
   password: 'secret_admin',
@@ -12,8 +14,13 @@ const noEmptyEmail = {
 }
 
 const noEmptyPassword = {
-  email: '',
-  password: 'secret_admin',
+  email: 'admin@admin.com',
+  password: '',
+}
+
+const InvalidPassword = {
+  email: 'admin@admin.com',
+  password: '12',
 }
 
 const existingUser = { 
@@ -29,4 +36,6 @@ export default {
   userBody,
   noEmptyEmail,
   noEmptyPassword,
+  notExistingUserBody,
+  InvalidPassword,
 }

@@ -48,5 +48,26 @@ describe('Testando o fluxo 2', () => {
 
   });
 
+  it('Retorna um erro caso o usuario não exista', async function() {
+    const httpRequestBody = loginMock.notExistingUserBody
+    sinon.stub(SequelizeUsers, 'findOne').resolves(null);
+
+    const httpResponse = await chai.request(app).post('/login').send(httpRequestBody);
+
+    expect(httpResponse.status).to.equal(401);
+    expect(httpResponse.body).to.be.deep.equal({ message: 'Invalid email or password' });
+
+  });
+
+  it('Retorna um erro caso o a senha seja menor que 6 caracteres', async function() {
+    const httpRequestBody = loginMock.InvalidPassword
+
+    const httpResponse = await chai.request(app).post('/login').send(httpRequestBody);
+
+    expect(httpResponse.status).to.equal(401);
+    expect(httpResponse.body).to.be.deep.equal({ message: 'Invalid email or password' });
+
+  });
+
   
 });
