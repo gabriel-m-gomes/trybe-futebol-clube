@@ -19,4 +19,9 @@ export default class MatchesService {
     await this.matchesModel.finishId(idMatches);
     return { status: 'SUCCESSFUL' };
   }
+
+  public async updateMatcher(idMatcher: number, homeTeamGoals: number, awayTeamGoals: number) {
+    await this.matchesModel.updateMatcher(idMatcher, homeTeamGoals, awayTeamGoals);
+    return { status: 'SUCCESSFUL' };
+  }
 }
