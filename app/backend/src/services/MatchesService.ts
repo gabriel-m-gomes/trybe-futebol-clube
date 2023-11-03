@@ -14,4 +14,9 @@ export default class MatchesService {
     const all = await this.matchesModel.getAllQuery(param);
     return { status: 'SUCCESSFUL', data: all };
   }
+
+  public async finishId(idMatches: number) {
+    await this.matchesModel.finishId(idMatches);
+    return { status: 'SUCCESSFUL' };
+  }
 }
