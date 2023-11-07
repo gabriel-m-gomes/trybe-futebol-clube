@@ -41,4 +41,16 @@ export default class MatchesModel implements IMatchesModel {
     );
     return matchById;
   }
+
+  async createMatcher(
+    homeTeamId: number,
+    awayTeamId: number,
+    homeTeamGoals: number,
+    awayTeamGoals: number,
+  ) {
+    const inProgress = true;
+    const matcher = await this.model.create({
+      homeTeamGoals, homeTeamId, awayTeamId, awayTeamGoals, inProgress });
+    return matcher.dataValues;
+  }
 }

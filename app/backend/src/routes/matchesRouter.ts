@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express';
 import ValidateToken from '../middlewares/validateToken';
-
+import ValidateMatcher from '../middlewares/validateMatcher';
 import MatchesController from '../controller/MatchesController';
 
 const matcherController = new MatchesController();
@@ -18,5 +18,12 @@ router.patch(
   '/:id',
   ValidateToken.verify,
   (req: Request, res: Response) => matcherController.updateMatcher(req, res),
+);
+
+router.post(
+  '/',
+  ValidateToken.verify,
+  ValidateMatcher.validateBody,
+  (req: Request, res: Response) => matcherController.createMatcher(req, res),
 );
 export default router;

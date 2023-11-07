@@ -24,4 +24,25 @@ export default class MatchesService {
     await this.matchesModel.updateMatcher(idMatcher, homeTeamGoals, awayTeamGoals);
     return { status: 'SUCCESSFUL' };
   }
+
+  public async createMatcher(
+    homeTeamId: number,
+    awayTeamId: number,
+    homeTeamGoals: number,
+    awayTeamGoals: number,
+  ) {
+    const allTeams = await this.matchesModel.getAll();
+    const homeTeamExists = allTeams.some((team) => team.homeTeamId === homeTeamId);
+    const awayTeamExists = allTeams.some((team) => team.awayTeamId === awayTeamId);
+    if (homeTeamExists && awayTeamExists) {
+      const data = await this.matchesModel.createMatcher(
+        homeTeamId,
+        awayTeamId,
+        homeTeamGoals,
+        awayTeamGoals,
+      );
+      return { status: 'CREATED', data };
+    }
+    return { status: 'NOT_FOUND', data: { message: 'There is no team with such id!' } };
+  }
 }
