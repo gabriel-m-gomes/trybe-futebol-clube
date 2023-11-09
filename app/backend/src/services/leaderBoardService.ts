@@ -9,4 +9,9 @@ export default class leaderBoardService {
     const data = await this.model.getAll();
     return { status: 'SUCCESSFUL', data };
   }
+
+  public async getAllAway(): Promise<ServiceResponse<IHome[]>> {
+    const data = await this.model.getAllAway();
+    return { status: 'SUCCESSFUL', data };
+  }
 }

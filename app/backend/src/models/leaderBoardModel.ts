@@ -1,3 +1,4 @@
+import Awayquery from '../utils/awayQuery';
 import { IHome } from '../Interfaces/leaderboard/IHome';
 import homeQuery from '../utils/homeQuery';
 import { IHomeModel } from '../Interfaces/leaderboard/IHomeModel';
@@ -8,6 +9,11 @@ export default class LeaderBoardModel implements IHomeModel {
 
   public async getAll(): Promise<IHome[]> {
     const [data] = await this.model.query(homeQuery) as IHome[][];
+    return data;
+  }
+
+  public async getAllAway(): Promise<IHome[]> {
+    const [data] = await this.model.query(Awayquery) as IHome[][];
     return data;
   }
 }

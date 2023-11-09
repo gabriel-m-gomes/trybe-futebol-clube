@@ -9,4 +9,9 @@ export default class LeaderBoardController {
     const { status, data } = await this.service.getAll();
     return res.status(mapStatusHTTP(status)).json(data);
   }
+
+  public async getAllAway(req: Request, res: Response) {
+    const { status, data } = await this.service.getAllAway();
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
 }
