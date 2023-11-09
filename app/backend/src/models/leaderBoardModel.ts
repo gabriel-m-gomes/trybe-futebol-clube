@@ -7,7 +7,7 @@ export default class LeaderBoardModel implements IHomeModel {
   private model = sequelize;
 
   public async getAll(): Promise<IHome[]> {
-    const [data] = await this.model.query(homeQuery) as IHome[][];
-    return data;
+    const [datas] = await this.model.query(homeQuery) as IHome[][];
+    return datas;
   }
 }
